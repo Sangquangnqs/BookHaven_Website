@@ -215,6 +215,184 @@ This is the `highest access level`, designated for `business administrators` to 
 
 ## 📌**Implementation**
 
+### **Application Programming Interface - API**
+
+The application consists of web servers that allow HTTP requests to execute CRUD operations related to Account, Book (a single book), Books (multiple books), Additional Images (book covers), Favorite Book, and Login.
+
+**1. Account:**
+  
+The Account API allows CRUD operations on user accounts within the web service through four HTTP methods: GET, POST, PUT, and DELETE.
+**<p align='center'> Endpoint: "/api/accounts.php" </p>**
+
+- `GET`: This method is used to `READ` user accounts stored in the web service:
+  - If the GET request includes the `"id"` parameter, it will query a specific account by ID:
+    - Returns `status code 200` with account information in the JSON response if successful.
+    - Returns `status code 404` if the account with the given ID is not found.
+  - If no parameters are provided, it returns `all accounts` with "User" level stored in the web service.
+
+- `POST`: This method is used to CREATE an account in the web service database:
+  - The HTTP request body should be in JSON format and contain `"username"`, `"password"`, `"type"`, and `"email"`.
+    - Returns `status code 201` if the account is successfully created in the database.
+    - Returns `status code 422` if the provided information cannot be processed by the web service.
+  - If no account information is provided in the request body, it returns `status code 400` (Bad Request).
+
+- `PUT`: This method is used to UPDATE an existing account in the web service database:
+  - The HTTP request body should be in JSON format and contain the `"id"` of the account to be modified, along with one of the three fields: `"username"`, `"password"`, or `"email"`.
+    - If multiple fields are sent, the account will only be updated based on the first field appearing in this order.
+    - Returns `status code 200` if the update is successful.
+    - Returns an error status code if the update fails due to incorrect data (e.g., non-existent `"id"`).
+  - If no account information is provided in the request body, it returns `status code 400` (Bad Request).
+
+- `DELETE`: This method is used to DELETE an account from the web service database:
+  - The HTTP request body should be in JSON format and contain the `"id"` of the account to be deleted.
+    - Returns `status code 204` if the deletion is successful.
+    - Returns `status code 404` if the account with the given `"id"` does not exist.
+  - If no account information is provided in the request body, it returns `status code 400` (Bad Request).
+
+**2. Book:**
+
+The Book API allows CRUD operations on an individual book using four HTTP methods: GET, POST, PUT, and DELETE.
+
+**<p align='center'> Endpoint: "/api/book.php" </p>**
+
+Any other HTTP methods sent to this endpoint will return status code 405 (Method Not Allowed).
+
+- `GET`: This method is used to READ a book stored in the web service. If the GET request includes the `"id"` parameter, it will query a specific book by ID:
+  - Returns `status code 200` with book details in the JSON response if successful.
+  - Returns `status code 500` if the book with the given ID is not found.
+
+- `POST`: This method is used to CREATE a book entry in the web service database:
+  - The HTTP request body should be in JSON format and contain `"isbn"`, `"name"`, `"price"`, `"author"`, `"description"`, `"image"`, and `"quantity"`.
+    - Returns status code 201 if the book is successfully created in the database.
+    - Returns status code 422 if the provided information cannot be processed by the web service.
+  - If no book information is provided in the request body, it returns `status code 400` (Bad Request).
+ 
+- `PUT`: This method is used to UPDATE an existing book entry in the web service database:
+  - The HTTP request body should be in JSON format and contain `"id"`, `"isbn"`, `"name"`, `"price"`, `"author"`, `"description"`, `"image"`, and `"quantity"`.
+    - Returns `status code 200` if the update is successful.
+    - Returns `status code 500` if the update fails due to incorrect data (e.g., non-existent `"id"`).
+  - If no book information is provided in the request body, it returns `status code 400` (Bad Request).
+
+- `DELETE`: This method is used to DELETE a book entry from the web service database:
+  - The HTTP request body should be in JSON format and contain the `"id"` of the book to be deleted.
+    - Returns `status code 204` if the deletion is successful.
+    - Returns `status code 404` if the book with the given `"id"` does not exist.
+  - If no book information is provided in the request body, it returns `status code 400` (Bad Request).
+
+**3. Books:**
+
+The Books API supports similar functions as the Book API for CREATE, UPDATE, and DELETE operations. However, the key difference is in the READ operation, where this API allows fetching multiple books at once for tasks like displaying book lists.
+**<p align='center'> Endpoint: "/api/books.php" </p>**
+
+Any other HTTP methods sent to this endpoint will return status code 405 (Method Not Allowed).
+
+- `GET`: This method is used to READ multiple books from the web service:
+  - If the GET request includes the `"page"` parameter, it will retrieve books for a specific page to support pagination in the user interface. The response will contain:
+    - `"total_pages"` – the total number of pages.
+    - `"bookDatas"` – an array of books belonging to the queried page.
+  - If no parameters are provided, the API will return all books in the database.
+
+- `POST, PUT, DELETE`: These methods function similarly to the corresponding methods in the Book API.
+
+**4. Additional Images:**
+
+This API supports books having multiple images through four HTTP methods: `GET, POST, PUT, and DELETE`.
+**<p align='center'> Endpoint: "/api/ad_images.php" </p>**
+
+Any other HTTP methods sent to this endpoint will return status code 405 (Method Not Allowed).
+
+- `GET`: This method is used to `READ` additional images of a book in the web service.
+  - If `"id"` is provided, it queries a specific image by ID.
+  - If `"book_id"` is provided, it queries all images of a specific book.
+    - Returns `status code 200` with the requested image URL in the JSON response if successful.
+    - Returns `status code 500` if the book or image ID is not found.
+
+- `POST`:  This method is used to `CREATE` an additional image for a book in the web service database:
+  - The HTTP request body should be in JSON format and contain `"book_id"` (the book’s ID) and `"image"` (URL/URI of the image).
+    - Returns status code 201 if the image is successfully added.
+    - Returns status code 422 if the provided information cannot be processed.
+  - If no data is provided, returns status code 400 (Bad Request).
+
+- `PUT, DELETE`: These methods work similarly to their counterparts in the Book API.
+
+**5. Favorite Books:**
+
+This API allows users to "favorite" books. Supported methods: GET, POST, and DELETE.
+**<p align='center'> Endpoint: "/api/favorite_book.php" </p>**
+
+Any other HTTP methods sent to this endpoint will return status code 405 (Method Not Allowed).
+
+- `GET`: This method is used to READ books "liked" by an account stored in the web service.
+  - The `GET` request requires the parameters:
+    - `"account_id"` - The user ID.
+    - `"return_type"` - The type of result returned, which accepts two values:
+    - `"books"` - Returns stored book information.
+    - `"books_id"` - Returns only the IDs of liked books.
+  - When `"return_type"` is `"books"`, an additional `"page"` parameter is supported for pagination. If `"page"` is not provided, all liked books will be returned.
+  - Response:
+    - Status Code 200 if successful. The JSON response includes:
+    - `"total_pages"` - The total number of pages for pagination.
+    - `"bookDatas"` - A list of books belonging to the requested "page".
+    - If `"page"` is not used, all liked books are returned.
+    - Status Code 500 if no books matching the queried IDs are found.
+
+- `POST`: This method is used to `CREATE` a like relationship between a book and an account in the database.
+  - The HTTP request body must be in JSON format and include:
+    - `"account_id"` - The user ID.
+    - `"book_id"` - The book ID.
+  - Response:
+    - Status Code 201 if the relationship is successfully created in the database.
+    - Status Code 422 if the provided data cannot be processed by the web service.
+    - Status Code 400 (Bad Request) if no data is sent in the HTTP body.
+
+- `DELETE`: This method is used to DELETE a like relationship between a book and an account from the database.
+  - The HTTP request body must be in JSON format and include:
+    - "account_id" - The user ID.
+    - "book_id" - The book ID.
+  - Response:
+    - Status Code 204 if the deletion is successful.
+    - Status Code 404 if the provided "account_id" does not exist.
+    - Status Code 400 (Bad Request) if no data is sent in the HTTP body.
+
+**6. Login:**
+
+This API is used to authenticate users when logging in with a `"username"` and `"password"`.
+Only the POST method is supported to send data to the web service for validation, ensuring user data security.
+
+**<p align='center'> Endpoint: "/api/login.php" </p>**
+
+Any other method sent to this endpoint will return Status Code 405 (Method Not Allowed).
+
+- `POST`: This method is similar to GET in terms of querying accounts, but instead of searching by `"id"`, it queries by `"username"` and performs authentication if a match is found.
+- Response:
+  - Status Code 200 if the username and password match the records in the database. The JSON response will include:
+    - `"id"` - The user ID.
+    - `"username"` - The account username.
+    - `"type"` - The account type.
+  - Status Code 401 (Unauthorized) if the login credentials are incorrect.
+
+**7. Register:**
+
+This API allows users to create a new account in the system. Only the POST method is supported to send user registration information.
+**<p align='center'> Endpoint: /api/register.php </p>**
+
+Any other HTTP method sent to this endpoint will return Status Code 405 (Method Not Allowed).
+
+- `POST`: This method registers a new user with a username, password, and email.
+  - Request Body (JSON format):
+```
+{
+  "username": "example_user",
+  "password": "securepassword",
+  "email": "user@example.com"
+}
+```
+  - Response:
+    - Status Code 201 (Created): When the account is successfully created.
+    - Status Code 409 (Conflict): If the username or email already exists in the system.
+    - Status Code 422 (Unprocessable Entity): If the request is missing required fields or has invalid data.
+    - Status Code 400 (Bad Request): If the request body is not sent correctly.
+    
 ### **Feature Overview**
 
 ## 📌**Installation Guide**
