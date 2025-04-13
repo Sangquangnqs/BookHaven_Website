@@ -177,6 +177,42 @@ The API and Utils directories contain API calls for website communication and su
 
 ## 📌**Software Features - Các tính năng của phần mềm**
 
+The website features are categorized based on user access levels, with the hierarchy: Guest -> User -> Admin. This classification helps the team identify the necessary functionalities for each user group, ensuring the implementation meets the specific needs of different access levels.
+
+**1. Guest Access:**
+
+The `Guest` level is the lowest access tier, applicable to first-time visitors or users who do not wish to create an account. Regardless of the access level, all users can view the `Home page`, which provides an overview of the website.
+
+Additionally, users at this level can register and log in to store their favorite books.
+
+**Features available for Guests**:
+
+- View the Home page, recommended books, and promotions
+- Browse the complete book collection on the website
+- Register and log in
+
+**2. User Access:**
+
+At the `User` level, users have created an account and logged in to access their `personalized experience`. This level allows users to `manage their personal book collection`, saving books of interest. They can also update their account information.
+
+**Features available for Users:**
+
+- View the Home page, recommended books, and promotions
+- Browse the complete book collection
+- Log out of their account
+- Edit account information
+- Manage their favorite book collection
+
+**3. Admin Access:**
+
+This is the `highest access level`, designated for `business administrators` to manage the website efficiently. Admins can `add, delete, and modify information` about all books displayed on the site. Similarly, they have the ability to `delete user accounts` if necessary.
+
+**Features available for Admins:**
+
+- View, add, edit, and delete books
+- View and delete user accounts
+- View, add, edit, and delete additional book images
+
 ## 📌**Implementation**
 
 ### **Feature Overview**
