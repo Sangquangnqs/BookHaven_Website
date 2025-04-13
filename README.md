@@ -62,7 +62,32 @@ By leveraging these technologies, BookHaven offers a robust, user-friendly, and 
 
 ## 🚀**Source code:**
 
+The source code of the software can be accessed via the following link:
+
+🔗 [BookHaven WebSite SourceCode](https://github.com/DanteBartel/HK232_Web_Nh-m_18_BTL)
+
 ## 📌**Security & SEO** 
+🚀 **Security**:
+
+Security is a crucial factor in website development, ensuring user data protection and maintaining trust. An unsecured website may be vulnerable to attacks, data leaks, and a poor user experience.
+
+To enhance security, **BookHaven** implements basic measures such as:
+- **Using HTTPS** to ensure a secure connection.
+- **Protecting user data**, especially login credentials.
+- **Regularly checking and fixing security vulnerabilities** to minimize potential risks.
+
+While it's impossible to eliminate all threats, these measures help make the website safer and better protect users.
+
+🚀 **SEO**:
+
+Search Engine Optimization (SEO) helps a website appear on search engines like Google, increasing its reach to potential customers.
+
+Some ways BookHaven improves SEO:
+- **Optimizing content** with clear titles and descriptions.
+- **Enhancing page loading speed** for a better user experience.
+- **Ensuring mobile-friendly design**, making it accessible across multiple devices.
+
+With these simple adjustments, **BookHaven** can reach a wider audience and make it easier for customers to find products on the website.
 
 ## 📌**Software Design - Thiết kế phần mềm** 
 
