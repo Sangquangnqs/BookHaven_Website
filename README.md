@@ -457,4 +457,22 @@ Admins can view a list of registered user accounts and delete user accounts by c
 
 ## 📌**Installation Guide**
 
+The website runs on an Apache environment through XAMPP version 8.2.12. This version of XAMPP supports PHP 8.2.12 and Apache 2.4.58.
+
+To install and test the website, follow these steps:
+  - Download the project repository from: 🔗 [BookHaven WebSite SourceCode](https://github.com/DanteBartel/HK232_Web_Nh-m_18_BTL)
+  - Install XAMPP from: `https://www.apachefriends.org/download.html`
+  - Copy the entire repository into the xampp/htdocs directory.
+  - Launch XAMPP and start the Apache and MySQL services.
+  - Open phpMyAdmin by navigating to `localhost/phpmyadmin/`.
+  - Create a new empty database named bookstore and import the sample data by running the script dbScript/bookstore.sql.
+  - Access the project's homepage via `localhost/index.php`.
+
 ## 🏆Contributors
+This project was successfully developed thanks to the dedication and effort of the following contributors:
+1. Phạm Minh Nhân - 2120047
+2. Nguyễn Quang Sáng - 2212922
+3. Võ Hiền Vương - 2015112
+4. Hà Lê Thiên Phú - 1914651
+
+🎉🎉🎉 Thank you for checking out this project! 🚀
