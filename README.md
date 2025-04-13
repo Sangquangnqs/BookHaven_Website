@@ -90,6 +90,49 @@ Some ways BookHaven improves SEO:
 With these simple adjustments, **BookHaven** can reach a wider audience and make it easier for customers to find products on the website.
 
 ## 📌**Software Design - Thiết kế phần mềm** 
+### Database: 
+
+<p align="center"><img src="assets/csdl.png" alt="csdl" width="400"></p>
+
+🚀 The database implementation includes the following data types:
+
+- `Varchar`: Used instead of `char` because `varchar` has a variable length depending on usage, while `char` has a fixed length. This helps save storage when dealing with attributes of uncertain length. Additionally, using `varchar` instead of `int` for some fields ensures that leading zeros in input values are preserved.
+
+- `Int`: Used for certain ID fields to reduce storage requirements. However, when using `int` for ID or code fields, leading zeros will be automatically removed.
+
+- `Double`: Chosen for attributes like price, which may have large values. `Double` can store up to 8 bytes, significantly more than the 4 bytes of `float`, ensuring greater precision in calculations.
+
+- `Tinyint`: Used exclusively for the `type` attribute. This is suitable for boolean-like values and helps optimize storage. In MySQL, `BOOLEAN` is essentially `TINYINT(1)`. In the `type` field, `0` represents an admin account, while `1` represents a user account.
+
+🚀 The database consists of four tables:
+
+- `Account`: Stores user account information, including `username`, `password`, `type` (0 for admin, 1 for user), and `email`.
+
+- Book: Stores book details. Three fields—`isbn`, `author`, and `image`—are nullable. The `username` field must be unique.
+
+- `Favorite book`: Stores the "favorite" relationship between users and books, containing two foreign keys referencing the `Account` and `Book` tables.
+
+- `Ad_images`: Stores additional images for a book.
+
+🚀 Relationships:
+
+- `Account` has a one-to-many relationship with `Favorite book`, with cascade delete enabled.
+
+- `Book` has a one-to-many relationship with `Favorite book`, also with cascade delete enabled.
+
+- `Book` has a one-to-many relationship with `Ad_images`, where deleting a book cascades to its associated images.
+
+### Application Model:
+
+<p align="center"><img src="assets/mvc.png" alt="mvc" width="400"></p>
+
+Our team chose the `MVC (Model-View-Controller)` pattern for this project. MVC is a software design pattern that separates an application into three interconnected components, improving organization, maintainability, scalability, and code reusability.
+
+- `Model`: Handles data and business logic. It represents application data and the operations that can be performed on it. Separating the model from other components allows us to modify or expand data processing logic without affecting the user interface.
+
+- `View`: The user interface that displays data from the model and provides an interactive experience. The separation between the view and other components enables UI modifications without impacting data processing.
+
+- `Controller`: Manages application flow and user input. It receives user requests, interacts with the model to fetch data, and updates the view accordingly. This separation ensures a clear control flow and simplifies testing.
 
 ## 📌**Source Code Structure** 
 
