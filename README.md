@@ -136,6 +136,45 @@ Our team chose the `MVC (Model-View-Controller)` pattern for this project. MVC i
 
 ## 📌**Source Code Structure** 
 
+The source code is stored and accessed by team members through the GitHub platform. The source code structure is organized as follows:
+
+<p align="center">
+<img src="assets/ctmn.png" alt="Ctmn" width="200">
+</p>
+
+It is divided into three main parts:
+
+- MVC Application Model
+- Data
+- API and Utils
+
+The directories containing the MVC model manage the application's codebase structure and are organized into three folders:
+
+- `/models`: Handles data and business logic
+- `/views`: Manages the user interface display
+- `/controllers`: Controls and directs the website's workflow
+
+<p align="center">
+<img src="assets/mh.png" alt="mh" width="200">
+</p>
+
+The **data-related directories** include the database and resources used during website development, divided into:
+
+- `/dbScript`: Database scripts
+- `/assets`: Website resources
+
+<p align="center">
+<img src="assets/mh2.png" alt="mh2" width="200">
+</p>
+
+The API and Utils directories contain API calls for website communication and supporting logic, divided into:
+- `/api`: API management
+- `/utils`: Supporting logic
+
+<p align="center">
+<img src="assets/mh3.png" alt="mh3" width="200">
+</p>
+
 ## 📌**Software Features - Các tính năng của phần mềm**
 
 ## 📌**Implementation**
